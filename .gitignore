@@ -1,3 +1,4 @@
 *.pyc
+dist/
 unilatin.egg-info/
 unilatin/__pycache__

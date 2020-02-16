@@ -78,18 +78,14 @@ setup(
     #packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     # If the package is a single module:
     py_modules=['unilatin'],
-
     entry_points={
         'console_scripts': [
-            'unilatin=unilatin.__main__:main'
+            'unilatin=unilatin.__main__:main',
             ],
     },
     install_requires=[
         # 'requests', 'maya', 'records',
         ],
-    extras_require={
-        # 'fancy feature': ['django'],
-        },
     include_package_data=True,
     license='MIT',
     classifiers=trove_classifiers,
