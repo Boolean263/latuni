@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+VERSION = (0, 0, 1)
+__version__ = '.'.join(map(str, VERSION))
+
 __all__ = [
         'format',
         'fullwidth',
@@ -18,7 +21,6 @@ __all__ = [
 FACE_PLAIN = 0x00
 FACE_BOLD = 0x01
 FACE_ITAL = 0x02
-FACE_BOLD_ITAL = 0x03 # this is intentional
 
 STYLE_SANS = 0x0100
 STYLE_SERIF = 0x0200
@@ -28,12 +30,12 @@ STYLE_DOUBLE = 0x1000
 STYLE_FRAKTUR = 0x2000
 
 styles = {
-        "sans" : unilatin.STYLE_SANS,
-        "serif" : unilatin.STYLE_SERIF,
-        "mono" : unilatin.STYLE_MONO,
-        "script" : unilatin.STYLE_SCRIPT,
-        "double" : unilatin.STYLE_DOUBLE,
-        "fraktur" : unilatin.STYLE_FRAKTUR,
+        "sans" : STYLE_SANS,
+        "serif" : STYLE_SERIF,
+        "mono" : STYLE_MONO,
+        "script" : STYLE_SCRIPT,
+        "double" : STYLE_DOUBLE,
+        "fraktur" : STYLE_FRAKTUR,
         }
 
 valid_combos = set((

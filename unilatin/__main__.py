@@ -10,10 +10,7 @@ import unilatin
 ##
 ## Main Program
 ##
-def main(args=None):
-    if args is None:
-        args = sys.argv[1:]
-
+def main():
     parser = argparse.ArgumentParser(description="Format latin text with unicode")
     parser.add_argument("-s", "--style", dest="style", metavar="STYLE",
             choices=unilatin.styles.keys(),
@@ -45,7 +42,7 @@ def main(args=None):
     if args.in_string:
         text = args.in_string+"\n"
     else:
-        text = args.read()
+        text = args.infile.read()
 
     text = unicodedata.normalize('NFKD', text);
     flags = sum(args.flags or [], unilatin.styles[args.style])
