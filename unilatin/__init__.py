@@ -65,18 +65,31 @@ for i in range(0, 26):
     charmap[STYLE_MONO][cap] = chr(i + 0x1d670)
     charmap[STYLE_MONO][sml] = chr(i + 0x1d68a)
 
-    charmap[STYLE_SERIF|FACE_ITAL][cap] = chr(i + 0x1d434)
-    charmap[STYLE_SERIF|FACE_ITAL][sml] = chr(i + 0x1d44e)
-    charmap[STYLE_SERIF|FACE_BOLD][cap] = chr(i + 0x1d400)
-    charmap[STYLE_SERIF|FACE_BOLD][sml] = chr(i + 0x1d41a)
+    # Use IT/it/BD/bd as shortcuts to the italicized/bolded letters
+    # so we can then map the opposite style applied over them onto
+    # bold+italic
+    IT = charmap[STYLE_SERIF|FACE_ITAL][cap] = chr(i + 0x1d434)
+    it = charmap[STYLE_SERIF|FACE_ITAL][sml] = chr(i + 0x1d44e)
+    BD = charmap[STYLE_SERIF|FACE_BOLD][cap] = chr(i + 0x1d400)
+    bd = charmap[STYLE_SERIF|FACE_BOLD][sml] = chr(i + 0x1d41a)
+
+    charmap[STYLE_SERIF|FACE_BOLD][IT] = \
+    charmap[STYLE_SERIF|FACE_ITAL][BD] = \
     charmap[STYLE_SERIF|FACE_BOLD|FACE_ITAL][cap] = chr(i + 0x1d468)
+    charmap[STYLE_SERIF|FACE_BOLD][it] = \
+    charmap[STYLE_SERIF|FACE_ITAL][bd] = \
     charmap[STYLE_SERIF|FACE_BOLD|FACE_ITAL][sml] = chr(i + 0x1d482)
 
-    charmap[STYLE_SANS|FACE_ITAL][cap] = chr(i + 0x1d608)
-    charmap[STYLE_SANS|FACE_ITAL][sml] = chr(i + 0x1d622)
-    charmap[STYLE_SANS|FACE_BOLD][cap] = chr(i + 0x1d5d4)
-    charmap[STYLE_SANS|FACE_BOLD][sml] = chr(i + 0x1d5ee)
+    IT = charmap[STYLE_SANS|FACE_ITAL][cap] = chr(i + 0x1d608)
+    it = charmap[STYLE_SANS|FACE_ITAL][sml] = chr(i + 0x1d622)
+    BD = charmap[STYLE_SANS|FACE_BOLD][cap] = chr(i + 0x1d5d4)
+    bd = charmap[STYLE_SANS|FACE_BOLD][sml] = chr(i + 0x1d5ee)
+
+    charmap[STYLE_SANS|FACE_BOLD][IT] = \
+    charmap[STYLE_SANS|FACE_ITAL][BD] = \
     charmap[STYLE_SANS|FACE_BOLD|FACE_ITAL][cap] = chr(i + 0x1d63c)
+    charmap[STYLE_SANS|FACE_BOLD][it] = \
+    charmap[STYLE_SANS|FACE_ITAL][bd] = \
     charmap[STYLE_SANS|FACE_BOLD|FACE_ITAL][sml] = chr(i + 0x1d656)
 
     charmap[STYLE_SCRIPT][cap] = chr(i + 0x1d49c)
@@ -130,6 +143,7 @@ def format(fmt, st):
     Return the formatted verison of the given string.
     """
     ret = ""
+    if not st: return ret
     if fmt not in valid_combos:
         return st
     cm = charmap[fmt]
@@ -142,6 +156,7 @@ def fullwidth(st):
     Return the fullwidth version of the given string.
     """
     ret = ""
+    if not st: return ret
     for c in st:
         i = ord(c)
         if c == " ":
@@ -154,11 +169,32 @@ def fullwidth(st):
 
 # Self-test routine
 if __name__ == '__main__':
-    import sys
+
+    style_names = { styles[k]:k for k in styles.keys() }
+    combo_names = {}
+    longest_name = 0
     for c in valid_combos:
-        for k in sorted(charmap[c].keys()):
-            sys.stdout.write(charmap[c][k])
-        sys.stdout.write("\n")
+        sty = c & ~0xFF
+        cn = style_names[sty]
+        if c & FACE_BOLD:
+            cn += " bold"
+        if c & FACE_ITAL:
+            cn += " ital"
+        combo_names[c] = cn
+        longest_name = max(longest_name, len(cn))
+
+    name_fmt = "{{:>{0}s}}: ".format(longest_name)
+
+    for c in valid_combos:
+        print(name_fmt.format(combo_names[c]), end="")
+        print(format(c,
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"))
+
+    print(format(STYLE_SANS|FACE_ITAL|FACE_BOLD,
+        "pre-combined bold and italic"))
+    print(format(STYLE_SANS|FACE_ITAL,
+        format(STYLE_SANS|FACE_BOLD, "Chained bold and italic")
+        ))
 
 #
 # Editor modelines - http://www.wireshark.org/tools/modelines.html
