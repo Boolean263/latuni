@@ -44,7 +44,7 @@ def main():
     else:
         text = args.infile.read()
 
-    text = unicodedata.normalize('NFKD', text);
+    text = unicodedata.normalize('NFD', text);
     flags = sum(args.flags or [], latuni.styles[args.style])
     args.outfile.write(latuni.format(flags, text))
 
