@@ -1,4 +1,4 @@
 *.pyc
 dist/
-unilatin.egg-info/
-unilatin/__pycache__
+*.egg-info/
+*/__pycache__

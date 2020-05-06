@@ -5,7 +5,7 @@ import sys
 import argparse
 import unicodedata
 
-import unilatin
+import latuni
 
 ##
 ## Main Program
@@ -13,14 +13,14 @@ import unilatin
 def main():
     parser = argparse.ArgumentParser(description="Format latin text with unicode")
     parser.add_argument("-s", "--style", dest="style", metavar="STYLE",
-            choices=unilatin.styles.keys(),
+            choices=latuni.styles.keys(),
             default="serif",
             help="Text style to use: %(choices)s (default:%(default)s)")
     parser.add_argument("-b", "--bold", dest="flags",
-            action='append_const', const=unilatin.FACE_BOLD,
+            action='append_const', const=latuni.FACE_BOLD,
             help="Bold")
     parser.add_argument("-i", "--italic", dest="flags",
-            action='append_const', const=unilatin.FACE_ITAL,
+            action='append_const', const=latuni.FACE_ITAL,
             help="Italic")
     parser.add_argument("--from-string", dest="in_string", metavar="STRING",
             type=str,
@@ -45,8 +45,8 @@ def main():
         text = args.infile.read()
 
     text = unicodedata.normalize('NFKD', text);
-    flags = sum(args.flags or [], unilatin.styles[args.style])
-    args.outfile.write(unilatin.format(flags, text))
+    flags = sum(args.flags or [], latuni.styles[args.style])
+    args.outfile.write(latuni.format(flags, text))
 
 if __name__ == '__main__':
     sys.exit(main() or 0)

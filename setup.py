@@ -15,7 +15,7 @@ from shutil import rmtree
 
 from setuptools import find_packages, setup, Command
 
-from unilatin import __version__
+from latuni import __version__
 
 with open("README.md", "r") as f:
     long_description = f.read()
@@ -65,7 +65,7 @@ class UploadCommand(Command):
 
 # Where the magic happens:
 setup(
-    name="unilatin",
+    name="latuni",
     version=__version__,
     description="Abuse unicode to output latin text in bold, italic, etc.",
     long_description=long_description,
@@ -73,14 +73,14 @@ setup(
     author="David Perry",
     author_email="boolean263@protonmail.com",
     python_requires=">=3.6.0",
-    url='https://github.com/Boolean263/unilatin',
+    url='https://github.com/Boolean263/latuni',
     # If the package has several modules:
     #packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     # If the package is a single module:
-    py_modules=['unilatin'],
+    py_modules=['latuni'],
     entry_points={
         'console_scripts': [
-            'unilatin=unilatin.__main__:main',
+            'latuni=latuni.__main__:main',
             ],
     },
     install_requires=[
