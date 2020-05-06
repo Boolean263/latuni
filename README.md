@@ -36,6 +36,6 @@ Doing this makes it a bit more likely that accents and whatnot will survive the 
 
 ## Other Modules
 
-I haven't published it yet, but I'm working on a plugin for the python [Markdown](https://pypi.org/project/Markdown/) library that uses LatUni to generate "plain text" from markdown text.
+This module is used by my other python module, [python-markdown-latuni](https://github.com/Boolean263/python-markdown-latuni), to let you turn markdown-formatted text to unicode-formatted "plain text".
 
 Yeah, I'm silly that way.
