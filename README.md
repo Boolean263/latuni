@@ -18,7 +18,7 @@ Once you install LatUni, you'll have a script in your path called `latuni`. You 
 
 (I should probably use this project to learn about making a self-documenting API too.)
 
-`format(format_flags, string)` returns a version of `string` formatted according to the given flags. Available flags are `FACE_PLAIN`, `FACE_BOLD`, `FACE_ITAL`, `STYLE_SANS`, `STYLE_SERIF`, `STYLE_MONO`, `STYLE_SCRIPT`, `STYLE_DOUBLE`, and `STYLE_FRAKTUR`. Many (but not all) of these can be combined. If you specify an unsupported combination, you may just get plain text.
+`format(format_flags, string)` returns a version of `string` formatted according to the given flags. Available flags are `FACE_PLAIN`, `FACE_BOLD`, `FACE_ITAL`, `STYLE_SANS`, `STYLE_SERIF`, `STYLE_MONO`, `STYLE_SCRIPT`, `STYLE_DOUBLE`, `STYLE_FRAKTUR`, and `STYLE_SMALLCAPS`. Many (but not all) of these can be combined. If you specify an unsupported combination, you will just get plain text.
 
 `fullwidth(string)` returns a version of `string` with all ASCII characters replaced with fullwidth versions. This could be handy for replicating formatting-sensitive text when you can't otherwise count on a monospace font.
 
