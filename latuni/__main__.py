@@ -22,7 +22,7 @@ def main():
     parser.add_argument("-i", "--italic", dest="flags",
             action='append_const', const=latuni.FACE_ITAL,
             help="Italic")
-    parser.add_argument("--from-string", dest="in_string", metavar="STRING",
+    parser.add_argument("-S", "--from-string", dest="in_string", metavar="STRING",
             type=str,
             default="",
             help="format STRING instead of file")
