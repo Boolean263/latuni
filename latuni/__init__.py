@@ -17,6 +17,7 @@ __all__ = [
         'STYLE_SCRIPT',
         'STYLE_DOUBLE',
         'STYLE_FRAKTUR',
+        'STYLE_SMALLCAPS',
         ]
 
 FACE_PLAIN = 0x00
@@ -29,6 +30,7 @@ STYLE_MONO = 0x0400
 STYLE_SCRIPT = 0x0800
 STYLE_DOUBLE = 0x1000
 STYLE_FRAKTUR = 0x2000
+STYLE_SMALLCAPS = 0x4000
 
 styles = {
         "sans" : STYLE_SANS,
@@ -37,6 +39,7 @@ styles = {
         "script" : STYLE_SCRIPT,
         "double" : STYLE_DOUBLE,
         "fraktur" : STYLE_FRAKTUR,
+        "smallcaps" : STYLE_SMALLCAPS,
         }
 
 valid_combos = set((
@@ -44,6 +47,7 @@ valid_combos = set((
         STYLE_SERIF|FACE_ITAL,
         STYLE_SERIF|FACE_BOLD,
         STYLE_SERIF|FACE_ITAL|FACE_BOLD,
+        STYLE_SANS,
         STYLE_SANS|FACE_ITAL,
         STYLE_SANS|FACE_BOLD,
         STYLE_SANS|FACE_ITAL|FACE_BOLD,
@@ -52,6 +56,7 @@ valid_combos = set((
         STYLE_DOUBLE,
         STYLE_FRAKTUR,
         STYLE_FRAKTUR|FACE_BOLD,
+        STYLE_SMALLCAPS,
         ))
 
 charmap = {}
@@ -86,6 +91,9 @@ for i in range(0, 26):
     BD = charmap[STYLE_SANS|FACE_BOLD][cap] = chr(i + 0x1d5d4)
     bd = charmap[STYLE_SANS|FACE_BOLD][sml] = chr(i + 0x1d5ee)
 
+    charmap[STYLE_SANS][cap] = chr(i + 0x1d5a0)
+    charmap[STYLE_SANS][sml] = chr(i + 0x1d5ba)
+
     charmap[STYLE_SANS|FACE_BOLD][IT] = \
     charmap[STYLE_SANS|FACE_ITAL][BD] = \
     charmap[STYLE_SANS|FACE_BOLD|FACE_ITAL][cap] = chr(i + 0x1d63c)
@@ -106,12 +114,15 @@ for i in range(0, 26):
     charmap[STYLE_FRAKTUR|FACE_BOLD][cap] = chr(i + 0x1d56c)
     charmap[STYLE_FRAKTUR|FACE_BOLD][sml] = chr(i + 0x1d586)
 
+    charmap[STYLE_SMALLCAPS][cap] = cap
+
 for i in range(0, 10):
     d = chr(i + ord('0'))
     charmap[STYLE_MONO][d] = chr(i + 0x1d7f6)
     charmap[STYLE_SERIF|FACE_BOLD][d] = chr(i + 0x1d7ce)
     charmap[STYLE_SANS|FACE_BOLD][d] = chr(i + 0x1d7ec)
     charmap[STYLE_DOUBLE][d] = chr(i + 0x1d7d8)
+    charmap[STYLE_SANS][d] = chr(i + 0x1d7e2)
 
 # Not all glyphs are in nice codepoint sequence, patch the gaps here
 charmap[STYLE_SERIF|FACE_ITAL]["h"] = chr(0x210e)
@@ -138,6 +149,35 @@ charmap[STYLE_FRAKTUR]["H"] = chr(0x210c)
 charmap[STYLE_FRAKTUR]["I"] = chr(0x2111)
 charmap[STYLE_FRAKTUR]["R"] = chr(0x211c)
 charmap[STYLE_FRAKTUR]["Z"] = chr(0x2128)
+
+# And smallcaps are all over the place
+charmap[STYLE_SMALLCAPS]["a"] = chr(0x1d00)
+charmap[STYLE_SMALLCAPS]["b"] = chr(0x0299)
+charmap[STYLE_SMALLCAPS]["c"] = chr(0x1d04)
+charmap[STYLE_SMALLCAPS]["d"] = chr(0x1d05)
+charmap[STYLE_SMALLCAPS]["e"] = chr(0x1d07)
+charmap[STYLE_SMALLCAPS]["f"] = chr(0xa730)
+charmap[STYLE_SMALLCAPS]["g"] = chr(0x0262)
+charmap[STYLE_SMALLCAPS]["h"] = chr(0x029c)
+charmap[STYLE_SMALLCAPS]["i"] = chr(0x026a)
+charmap[STYLE_SMALLCAPS]["j"] = chr(0x1d0a)
+charmap[STYLE_SMALLCAPS]["k"] = chr(0x1d0b)
+charmap[STYLE_SMALLCAPS]["l"] = chr(0x029f)
+charmap[STYLE_SMALLCAPS]["m"] = chr(0x1d0d)
+charmap[STYLE_SMALLCAPS]["n"] = chr(0x0274)
+charmap[STYLE_SMALLCAPS]["o"] = chr(0x1d0f)
+charmap[STYLE_SMALLCAPS]["p"] = chr(0x1d18)
+charmap[STYLE_SMALLCAPS]["q"] = "Q" # Can't find this one anywhere
+charmap[STYLE_SMALLCAPS]["r"] = chr(0x0280)
+charmap[STYLE_SMALLCAPS]["s"] = chr(0xa731)
+charmap[STYLE_SMALLCAPS]["t"] = chr(0x1d1b)
+charmap[STYLE_SMALLCAPS]["u"] = chr(0x1d1c)
+charmap[STYLE_SMALLCAPS]["v"] = chr(0x1d20)
+charmap[STYLE_SMALLCAPS]["w"] = chr(0x1d21)
+charmap[STYLE_SMALLCAPS]["x"] = "x"
+charmap[STYLE_SMALLCAPS]["y"] = chr(0x028f)
+charmap[STYLE_SMALLCAPS]["z"] = chr(0x1d22)
+
 
 def format(fmt, st):
     """\
